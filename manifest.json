@@ -1,0 +1,21 @@
+{
+  "name": "Sivar Exchange",
+  "short_name": "Sivar Exchange",
+  "description": "Intercambia tus criptomonedas favoritas de forma segura y descentralizada, sin KYC ni fees ocultos.",
+  "icons": [
+    {
+        "src": "img/logo.png",
+        "sizes": "192x192",
+        "type": "image/png"
+    },
+    {
+        "src": "img/logo.png",
+        "sizes": "512x512",
+        "type": "image/png"
+    }
+  ],
+  "start_url": "/Sivar-Exchange/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#FF7F50"
+}

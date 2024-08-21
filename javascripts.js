@@ -1,51 +1,76 @@
-document.addEventListener('DOMContentLoaded', function () {
-    if (!localStorage.getItem('tutorialShown')) {
-      showTutorial();
-    }
-  
-    function showTutorial() {
-      const modal1 = document.getElementById('welcomeModal');
-      const close1Btn = document.getElementsByClassName('close1')[0];
-      const gotItBtn = document.getElementById('gotItBtn');
-      const tutorialSteps = document.getElementById('tutorial-steps');
-  
-      // Detectar dispositivo
-      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-  
-      if (/android/i.test(userAgent)) {
-        tutorialSteps.innerHTML = `
-          <p>Para añadir esta aplicación en tu pantalla de inicio:</p>
-          <ol>
-            <li>Presiona el botón de menú (los tres puntos verticales) en tu navegador.</li>
-            <li>Selecciona "Añadir a pantalla de inicio".</li>
-          </ol>`;
-      } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-        tutorialSteps.innerHTML = `
-          <p>Para añadir esta aplicación en tu pantalla de inicio:</p>
-          <ol>
-            <li>Presiona el botón de compartir en la barra inferior.</li>
-            <li>Selecciona "Añadir a pantalla de inicio".</li>
-          </ol>`;
-      } else {
-        tutorialSteps.innerHTML = `<p>Presiona el botón de compartir o el menú del navegador y selecciona "Añadir a pantalla de inicio".</p>`;
-      }
-  
-      modal1.style.display = "block";
-  
-      close1Btn.onclick = function() {
-        modal1.style.display = "none";
-      };
-  
-      gotItBtn.onclick = function() {
-        modal1.style.display = "none";
-        localStorage.setItem('tutorialShown', 'true');
-      };
-  
-      window.onclick = function(event) {
-        if (event.target == modal1) {
-          modal1.style.display = "none";
-          localStorage.setItem('tutorialShown', 'true');
-        }
-      };
-    }
-  });
+const modal = document.getElementById("tutorialModal");
+const closeBtn = document.getElementsByClassName("close")[0];
+const prevBtns = document.querySelectorAll("#prevBtn"); // Selecciona todos los botones "Anterior"
+const nextBtns = document.querySelectorAll("#nextBtn"); // Selecciona todos los botones "Siguiente"
+const finishBtn = document.getElementById("finishBtn");
+const tutorialSteps = document.getElementsByClassName("tutorial-step");
+const content = document.querySelector('main'); // Selecciona el contenido principal que deseas desenfocar
+let currentStep = 0;
+
+// Mostrar el modal al cargar la página
+modal.style.display = "block";
+
+// Cerrar el modal
+closeBtn.onclick = function() {
+  modal.style.display = "none";
+};
+
+// Función para mostrar el paso actual
+function showStep(stepIndex) {
+  for (let i = 0; i < tutorialSteps.length; i++) {
+    tutorialSteps[i].classList.remove("active");
+  }
+  tutorialSteps[stepIndex].classList.add("active");
+}
+
+// Navegar a través de los pasos del tutorial
+nextBtns.forEach(btn => {
+  btn.onclick = function() {
+    currentStep = (currentStep + 1) % tutorialSteps.length;
+    showStep(currentStep);
+  };
+});
+
+prevBtns.forEach(btn => {
+  btn.onclick = function() {
+    currentStep = (currentStep - 1 + tutorialSteps.length) % tutorialSteps.length;
+    showStep(currentStep);
+  };
+});
+
+finishBtn.onclick = function() {
+  modal.style.display = "none";
+};
+
+// Cerrar el modal al hacer clic fuera de él
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+
+// Mostrar el primer paso inicialmente
+showStep(currentStep);
+
+// Mostrar el modal al cargar la página y aplicar blur al fondo
+modal.style.display = "block";
+content.classList.add('blur-background');
+
+// Cerrar el modal y quitar el efecto blur
+closeBtn.onclick = function() {
+  modal.style.display = "none";
+  content.classList.remove('blur-background');
+};
+
+finishBtn.onclick = function() {
+  modal.style.display = "none";
+  content.classList.remove('blur-background');
+};
+
+// Cerrar el modal al hacer clic fuera de él y quitar el blur
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    content.classList.remove('blur-background');
+  }
+};

@@ -53,17 +53,54 @@
         </div>
     </main>    
 
-    <div id="welcomeModal" class="modal1">
-        <div class="modal-content1">
-          <span class="close1">&times;</span>
-          <h2>¡Bienvenido a Sivar Exchange!</h2>
-          <p>Guarda esta aplicación en tu pantalla de inicio para un acceso más fácil.</p>
-          <div id="tutorial-steps">
-            <!-- El contenido se agregará dinámicamente según el dispositivo -->
+    <div id="tutorialModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="tutorialSteps">
+                <div class="tutorial-step active">
+                    <h2>¡Bienvenido a Sivar Exchange!</h2>
+                    <p>Aprende cómo comenzar a usar nuestro intercambio de criptomonedas seguro y descentralizado.</p>
+                    <div style="text-align: center;">
+                        <button id="nextBtn">Siguiente</button>
+                    </div>
+                </div>
+            <div class="tutorial-step">
+              <h2>Paso 1: Agregar a la Pantalla de Inicio</h2>
+              <p>Para acceder fácilmente a Sivar Exchange, agrégalo a la pantalla de inicio de tu dispositivo:</p>
+              <ol>
+                <li>Presiona el botón de menú (los tres puntos verticales) en tu navegador.</li>
+                <li>Selecciona "Agregar a Pantalla de Inicio".</li>
+              </ol>
+              <div style="text-align: center;">
+                <button id="prevBtn" style="margin-right: 10px;">Anterior</button>
+                <button id="nextBtn">Siguiente</button>
+              </div>
+            </div>
+            <div class="tutorial-step">
+              <h2>Paso 2: Comienza a Intercambiar</h2>
+              <p>Ahora estás listo para comenzar a intercambiar tus criptomonedas favoritas:</p>
+              <ul>
+                <li>Selecciona las monedas que quieres intercambiar.</li>
+                <li>Revisa los tipos de cambio y tarifas.</li>
+                <li>Confirma la transacción para completar el intercambio.</li>
+              </ul>
+              <div style="text-align: center;">
+                <button id="prevBtn" style="margin-right: 10px;">Anterior</button>
+                <button id="nextBtn">Siguiente</button>
+              </div>
+            </div>
+            <div class="tutorial-step">
+              <h2>¡Disfruta de Sivar Exchange!</h2>
+              <p>¡Ya lo tienes! Explora nuestra plataforma y comienza a intercambiar de forma segura y privada.</p>
+              <div style="text-align: center;">
+                <button id="prevBtn" style="margin-right: 10px;">Anterior</button>
+                <button id="finishBtn">Finalizar</button>
+              </div>
+            </div>
           </div>
-          <button id="gotItBtn">¡Entendido!</button>
         </div>
       </div>
+
     <script defer type="text/javascript" src="https://changenow.io/embeds/exchange-widget/v2/stepper-connector.js"></script>
 
     <script>

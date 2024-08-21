@@ -4,16 +4,38 @@ const prevBtns = document.querySelectorAll("#prevBtn"); // Selecciona todos los 
 const nextBtns = document.querySelectorAll("#nextBtn"); // Selecciona todos los botones "Siguiente"
 const finishBtn = document.getElementById("finishBtn");
 const tutorialSteps = document.getElementsByClassName("tutorial-step");
-const content = document.querySelector('main'); // Selecciona el contenido principal que deseas desenfocar
+const content = document.querySelectorAll('main, header'); // Selecciona el contenido que deseas desenfocar y ocultar
 let currentStep = 0;
 
-// Mostrar el modal al cargar la página
-modal.style.display = "block";
+// Función para agregar la clase blur y ocultar el título
+function applyBlurAndHideTitle() {
+  content.forEach(el => {
+    el.classList.add('blur-background');
+    if (el.querySelector('h1')) {
+      el.querySelector('h1').style.display = 'none';
+    }
+  });
+}
 
-// Cerrar el modal
-closeBtn.onclick = function() {
-  modal.style.display = "none";
-};
+// Función para quitar la clase blur y mostrar el título
+function removeBlurAndShowTitle() {
+  content.forEach(el => {
+    el.classList.remove('blur-background');
+    if (el.querySelector('h1')) {
+      el.querySelector('h1').style.display = 'block';
+    }
+  });
+}
+
+// Comprobar si el usuario ya ha visto el tutorial
+if (!localStorage.getItem('tutorialShown')) {
+  // Mostrar el modal al cargar la página y aplicar blur al fondo
+  modal.style.display = "block";
+  applyBlurAndHideTitle();
+
+  // Guardar en localStorage que el tutorial ya fue mostrado
+  localStorage.setItem('tutorialShown', 'true');
+}
 
 // Función para mostrar el paso actual
 function showStep(stepIndex) {
@@ -38,39 +60,24 @@ prevBtns.forEach(btn => {
   };
 });
 
-finishBtn.onclick = function() {
+// Cerrar el modal y quitar el efecto blur y mostrar el título
+closeBtn.onclick = function() {
   modal.style.display = "none";
+  removeBlurAndShowTitle();
 };
 
-// Cerrar el modal al hacer clic fuera de él
+finishBtn.onclick = function() {
+  modal.style.display = "none";
+  removeBlurAndShowTitle();
+};
+
+// Cerrar el modal al hacer clic fuera de él y quitar el blur y mostrar el título
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
+    removeBlurAndShowTitle();
   }
 };
 
 // Mostrar el primer paso inicialmente
 showStep(currentStep);
-
-// Mostrar el modal al cargar la página y aplicar blur al fondo
-modal.style.display = "block";
-content.classList.add('blur-background');
-
-// Cerrar el modal y quitar el efecto blur
-closeBtn.onclick = function() {
-  modal.style.display = "none";
-  content.classList.remove('blur-background');
-};
-
-finishBtn.onclick = function() {
-  modal.style.display = "none";
-  content.classList.remove('blur-background');
-};
-
-// Cerrar el modal al hacer clic fuera de él y quitar el blur
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-    content.classList.remove('blur-background');
-  }
-};

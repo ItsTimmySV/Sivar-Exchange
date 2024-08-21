@@ -52,6 +52,18 @@
             </div>
         </div>
     </main>    
+
+    <div id="welcomeModal" class="modal1">
+        <div class="modal-content1">
+          <span class="close1">&times;</span>
+          <h2>¡Bienvenido a Mai Money!</h2>
+          <p>Guarda esta aplicación en tu pantalla de inicio para un acceso más fácil.</p>
+          <div id="tutorial-steps">
+            <!-- El contenido se agregará dinámicamente según el dispositivo -->
+          </div>
+          <button id="gotItBtn">¡Entendido!</button>
+        </div>
+      </div>
     <script defer type="text/javascript" src="https://changenow.io/embeds/exchange-widget/v2/stepper-connector.js"></script>
 
     <script>
@@ -63,8 +75,10 @@
           .catch((error) => {
             console.log('Error al registrar el Service Worker:', error);
           });
-        }
+        } 
       </script>
-      
+
+<script src="javascripts.js"></script>
+
 </body>
 </html>
